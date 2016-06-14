@@ -23,7 +23,7 @@ public class GameSettings {
 	
 	/**
 	 * says how many points to use for calculating a player astroid collision.
-	 * The higher the number the slower the game but better collision detection
+	 * The higher the number the slower the game but the more accurate the collision
 	 * is more accurate
 	 */
 	public static int circlePointCount = 50;

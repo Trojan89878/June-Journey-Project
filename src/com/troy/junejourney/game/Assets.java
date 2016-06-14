@@ -9,6 +9,10 @@ public class Assets {
 	private static BufferedImage rocket, astroid, spaceSky, flame, fireParticle, ground, ufo, brokenAstroid;
 	public static Image not_found = Loader.loadImage("notFound.png");
 	public Assets() {
+		/**
+		 * load in all images using the load methoid in the loadBufferedImage methoid in the loader class
+		 * within the Troy Berry Libary (the libary that I made to assist in making games)
+		 */
 		not_found = Loader.loadBufferedImage("notFound.png");
 		rocket = Loader.loadBufferedImage("rocket.png");
 		astroid = Loader.loadBufferedImage("astroid.png");

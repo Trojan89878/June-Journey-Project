@@ -18,7 +18,24 @@ public class Game implements IGame{
 	
 	public static boolean inGame = false;
 	
-	private JFrame jframe;
+	public static JFrame jframe;
+	
+	public static final String VERSION = "1.0 Pre-Release", INFO =
+			"Mars Game is a game developed by Troy Neubauer in June 2016 "
+			+ "for the school project June Journey. The point of the game "
+			+ "is to land safely on ‘Mars’ without hitting any asteroids "
+			+ "or the ground to fast. I achieved this by using 2D vectors "
+			+ "to simulate gravity and basic physics. The entire source "
+			+ "code is available on github. Just click the link below!",
+			CREDITS =
+			"Designed by Troy Neubauer\n" +
+"Supervised by Troy Neubauer\n" + 
+"Directed by Troy Neubauer\n" +
+"Programmed by Troy Neubauer\n" +
+"John Jones (He didn't help in terms of the game \n"
++ "but I will include his name because he worked \n"
++ "a lot on the presentation and he was my partner)",
+JUNEJURNEYLINK = "https://github.com/Trojan89878/June-Jurney-Project";
 	
 	public static EntityCreator entityCreator;
 	EntityManager entityManager;
@@ -37,16 +54,16 @@ public class Game implements IGame{
 
 	public Game() {
 		hasWon = false;
-		window = new GameWindow("June Journey project", 1440, 810, true);
-		GameSettings.width = 1440;
-		GameSettings.height = 810;
+		window = new GameWindow("June Journey project", 1280, 720, true);
+		GameSettings.width = 1280;
+		GameSettings.height = 720;
 		window.makeWindowFullScreen();
 		
 		camera = new Camera();
 		world = new World();
 		
-		player = new EntityPlayer(new Vector2f(GameSettings.width / 2 + Assets.getRocket().getWidth() / 2, 1000),
-				new Vector2f(0.0f, 5.0f), 1.0f, 100, Assets.getRocket());
+		player = new EntityPlayer(new Vector2f(GameSettings.width / 2 + Assets.getRocket().getWidth() / 2, 0),
+				new Vector2f(0.0f, 7.0f), 1.0f, 100, Assets.getRocket());
 		player.centerCameraOnPlayer();
 		
 		
@@ -61,7 +78,6 @@ public class Game implements IGame{
 		
 		entityCreator = new EntityCreator();
 		entityCreator.init(this);
-		entityCreator.createAstroids((int)(GameSettings.groundHeight * 5 / 8), 500);
 		
 		renderLoop = new RenderLoop();
 		renderLoop.setGame(this);
@@ -102,9 +118,8 @@ public class Game implements IGame{
 	@Override
 	public void render(Graphics g) {
 		backGround.render(g);
-		world.render(g);
-		g.setColor(Color.white);
 		entityManager.render(g);
+		world.render(g);
 		player.render(g);
 		StatManager.render(g);
 	}

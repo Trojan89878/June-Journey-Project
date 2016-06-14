@@ -38,7 +38,7 @@ public class StatManager {
 
 		g.drawString("Altitude "
 				+ df.format(Math.abs(
-						(float) GameSettings.groundHeight - Game.player.getPosition().getY()) / 100)
+						(float) GameSettings.groundHeight - Game.player.getPosition().getY()) / 1000)
 				+ " Miles", GameSettings.width - 250, 123);
 
 		g.drawString("Fuel Remaining " + df.format(Game.player.getFuel()) + " Liters",

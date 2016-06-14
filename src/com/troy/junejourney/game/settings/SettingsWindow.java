@@ -14,6 +14,12 @@ public class SettingsWindow {
 	public static boolean open = false;
 	private static JFrame frame;
 
+	/**
+	 * This method initalises the settings window with all the sliders and check
+	 * boxes, however I purposfully make sure that the window isn't visible. I
+	 * make it visable when the user presses "o" and hide it when they press "p"
+	 */
+
 	public static void initialize() {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -23,7 +29,12 @@ public class SettingsWindow {
 		}
 		DisplayMode displayMode = GraphicsEnvironment.getLocalGraphicsEnvironment()
 				.getDefaultScreenDevice().getDisplayMode();
+
+		/**
+		 * create a new window th include all the sliders and check boxes in.
+		 */
 		frame = new JFrame();
+		frame.setTitle("Game Settings");
 		frame.setSize((int) ((float) displayMode.getWidth() / 2f),
 				(int) ((float) displayMode.getHeight() / 2f));
 		frame.setLocationRelativeTo(null);
@@ -97,39 +108,46 @@ public class SettingsWindow {
 				GameSettings.showHitBoxes = checkBox_1.isSelected();
 			}
 		});
-		
-		
+
 		frame.addWindowListener(new java.awt.event.WindowAdapter() {
-		    @Override
-		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-		        hide();
-		    }
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+				hide();
+			}
 		});
-		
+
 		frame.addKeyListener(new KeyInput());
 		frame.requestFocus();
 	}
 
+	/**
+	 * Simple method that shows the window
+	 */
 	public static void show() {
 		if (open == false) {
 			open = true;
 			frame.setVisible(true);
-			if(Game.inGame){
+			if (Game.inGame) {
 				Main.game.pauseThreads();
 			}
-			
+
 		}
 		frame.requestFocus();
 	}
 
+	/**
+	 * Simple method that hides the window
+	 */
 	public static void hide() {
 		if (open == true) {
 			open = false;
 			frame.setVisible(false);
-			if(Game.inGame){
+			if (Game.inGame) {
 				Main.game.resumeThreads();
 			}
 		}
-		
+		if (Game.inGame) {
+			Game.jframe.requestFocus();
+		}
 	}
 }

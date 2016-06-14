@@ -10,10 +10,10 @@ import com.troy.junejourney.game.settings.*;
 
 public class TitleWindow {
 
-	private static JFrame frame;
+	public static JFrame frame;
 
 	/**
-	 * @wbp.parser.entryPoint
+	 * 
 	 */
 	public static void initialize() {
 		frame = new JFrame();
@@ -47,6 +47,20 @@ public class TitleWindow {
         });
         
         gui.add(optionsButton);
+        
+        
+        
+        
+        JButton helpInfoButton = new JButton("Help & Info");
+        helpInfoButton.setMargin(margin);
+        
+        helpInfoButton.addActionListener(e ->{
+        	HelpInfoWindow.show();
+        });
+        
+        gui.add(helpInfoButton);
+        
+        
         
         JButton quitButton = new JButton("Quit");
         quitButton.setMargin(margin);
