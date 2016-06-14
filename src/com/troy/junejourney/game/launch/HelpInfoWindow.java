@@ -91,7 +91,15 @@ public class HelpInfoWindow {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("luncher");
+				if (Desktop.isDesktopSupported()) {
+					try {
+						Desktop.getDesktop().browse(new URI(Game.THETROYLAUNCHERLINK));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					} catch (URISyntaxException e1) {
+						e1.printStackTrace();
+					}
+				}
 			}
 		});
 		panel.add(btnNewButton_1);
