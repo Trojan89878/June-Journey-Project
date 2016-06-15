@@ -19,10 +19,10 @@ public class EntityParticle extends Entity {
 	
 	
 	@Override
-	public void tick(){
+	public void tick(int tickCount){
 		if(this.age > this.lifeLength) return;
 		this.age++;
-		super.tick();
+		super.tick(tickCount);
 		
 	}
 	

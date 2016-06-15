@@ -82,15 +82,16 @@ public class EntityCreator {
 							new Vector2f(GameSettings.width * random.nextFloat(),
 									height + (600 - (300 * random.nextFloat()))),
 
-							Vector2f.randomVector(difficulty), 0.5f + random.nextFloat(),
-							Assets.getAstroid(), true);
+							new Vector2f((0.5f - random.nextFloat()) * difficulty,
+									(random.nextFloat() * difficulty) / 4f),
+							0.7f + random.nextFloat(), Assets.getAstroid(), true);
 
 					a.setEffectedByGravity(false);
 				}
 			}
 		} else if (position == astroidSpawnLocation.LEFT) {
 			EntityAstroid a = new EntityAstroid(new Vector2f(
-					((float) GameSettings.width * (1f / 8f)) * random.nextFloat(), height),
+					((float) GameSettings.width * (1f / 4f)) * random.nextFloat(), height),
 
 					Vector2f.randomVector(((difficulty / (difficultyScale / 2))
 							* (difficulty / (difficultyScale / 2)))),
@@ -103,7 +104,7 @@ public class EntityCreator {
 
 			EntityAstroid a = new EntityAstroid(
 					new Vector2f(GameSettings.width
-							- (((float) GameSettings.width * (1f / 8f)) * random.nextFloat()),
+							- (((float) GameSettings.width * (1f / 4f)) * random.nextFloat()),
 							height),
 					Vector2f.randomVector(((difficulty / (difficultyScale / 2))
 							* (difficulty / (difficultyScale / 2)))),

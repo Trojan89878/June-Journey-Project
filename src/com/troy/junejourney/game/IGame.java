@@ -6,7 +6,7 @@ import java.awt.Graphics;
  *The tick methoid updates positions keybindings ect
  */
 public interface IGame {
-	public void tick();
+	public void tick(int tickCount);
 	public void render(Graphics g);
 
 }

@@ -6,7 +6,7 @@ package com.troy.junejourney.game;
  */
 public class GameSettings {
 	//limit FPS is weather or not we want to limit the FPS to a certain number
-	public static boolean limitFPS = true, showPSInfo;
+	public static boolean limitFPS = true, showPSInfo, toturial = true;
 	//limitFPSto is how many FPS we want if we are limiting them to a certain value
 	public static int limitFPSto = 60;
 	/**

@@ -54,9 +54,9 @@ public class StatManager {
 		if (Game.player.getHealth() <= 0) {
 			MiscUtil.drawCenteredString(g, "You Died", GameSettings.width / 2,
 					GameSettings.height / 2);
-			Camera.yOffset -= 1f;
+			Camera.yOffset -= 0.75f;
 		}
-		if (Game.hasWon) {
+		if (Game.hasWon && Game.player.isAlive()) {
 			Camera.yOffset -= 0.5f;
 			MiscUtil.drawCenteredString(g, "You Won!", GameSettings.width / 2,
 					GameSettings.height / 2);
@@ -65,7 +65,7 @@ public class StatManager {
 
 	}
 
-	public static void tick() {
+	public static void tick(int tickCount) {
 		TPScounter++;
 		if ((System.nanoTime() - TPSStartTime) >= 1000000000L) {
 			TPSStartTime += 1000000000L;

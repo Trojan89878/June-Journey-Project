@@ -13,6 +13,8 @@ public class SettingsWindow {
 
 	public static boolean open = false;
 	private static JFrame frame;
+	
+	public static JCheckBox checkBox_2;
 
 	/**
 	 * This method initalises the settings window with all the sliders and check
@@ -40,7 +42,24 @@ public class SettingsWindow {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		
+		JLabel lblLimit1 = new JLabel("Toturial");
+		frame.getContentPane().add(lblLimit1);
+		
+		checkBox_2 = new JCheckBox("");
+		frame.getContentPane().add(checkBox_2);
 
+		checkBox_2.setSelected(GameSettings.toturial);
+
+		checkBox_2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GameSettings.toturial = checkBox_2.isSelected();
+			}
+		});
+		
+		
 		JLabel lblLimit = new JLabel("Astroid Difficulty");
 		frame.getContentPane().add(lblLimit);
 

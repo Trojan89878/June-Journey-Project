@@ -32,7 +32,7 @@ public class BackGround implements IGame{
 	}
 
 	@Override
-	public void tick() {
+	public void tick(int tickCount) {
 		float percentFinished = Game.player.getPosition().getY() / (float)(GameSettings.groundHeight);
 		percentFinished = Math.min(percentFinished, 1);
 		percentFinished = Math.max(percentFinished, 0);

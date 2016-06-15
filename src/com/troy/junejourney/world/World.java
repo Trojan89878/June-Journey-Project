@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import com.troy.junejourney.game.*;
+import com.troy.junejourney.util.*;
 import com.troy.troyberry.math.vector.Vector2f;
 import com.troy.troyberry.shape.*;
 
@@ -26,7 +27,7 @@ public class World implements IGame {
 	}
 
 	@Override
-	public void tick() {
+	public void tick(int tickCount) {
 		lookForPlayerIntersection();
 		createNewAstroids();
 	}
@@ -58,12 +59,19 @@ public class World implements IGame {
 		}
 		if (!playerIntersectsWithGround) {
 			if (ground.intersectsWithRectangle(Game.player.getBoundingBox())) {
+				Game.hasWon = true;
+				
 				playerIntersectsWithGround = true;
 				
 				Game.player.setFuel(0.0f);
 				Game.player.setEffectedByGravity(false);
 				float damage = ((GameSettings.astroidDamageBuffer / 2) * Game.player.getVelocity().lengthSquared());
 				Game.player.damage(damage);
+				
+				if (Game.player.getHealth() <= 0.0f) {
+					new Explosion(Game.player.getPosition());
+					Game.player.centerCameraOnPlayer();
+				}
 			}
 		}else{
 			Game.player.setVelocity(new Vector2f());

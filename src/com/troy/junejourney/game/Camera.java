@@ -11,7 +11,7 @@ public class Camera implements IGame {
 	}
 
 	@Override
-	public void tick() {
+	public void tick(int tickCount) {
 		if(Game.player.isAlive()){
 			Game.player.centerCameraOnPlayer();
 		}

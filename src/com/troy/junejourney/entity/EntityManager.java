@@ -15,10 +15,10 @@ public class EntityManager implements IGame {
 	}
 
 	@Override
-	public void tick() {
+	public void tick(int tickCount) {
 		for(int i = 0; i < Entity.entities.size(); i++){
 			Entity currentEntity = Entity.entities.get(i);
-			currentEntity.tick();
+			currentEntity.tick(tickCount);
 
 		}
 	}

@@ -45,5 +45,7 @@ public class Main {
 	public static void restart() {
 		game.stop();
 		game = new Game();
+		GameSettings.toturial = false;
+		SettingsWindow.checkBox_2.setSelected(false);
 	}
 }

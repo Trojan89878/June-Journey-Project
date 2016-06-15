@@ -41,7 +41,7 @@ public class Entity implements IGame {
 	}
 
 	@Override
-	public void tick() {
+	public void tick(int tickCount) {
 		if(!isAlive()) return;
 		// add the velocity onto the position of the entity
 		position.add(velocity);
@@ -128,6 +128,22 @@ public class Entity implements IGame {
 
 	public void setAlive(boolean isAlive) {
 		this.isAlive = isAlive;
+	}
+	
+	public float getX(){
+		return this.getPosition().getX();
+	}
+	
+	public float getY(){
+		return this.getPosition().getY();
+	}
+	
+	public float getVelX(){
+		return this.getVelocity().getX();
+	}
+	
+	public float getVelY(){
+		return this.getVelocity().getY();
 	}
 
 }

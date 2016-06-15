@@ -42,11 +42,12 @@ public class Game implements IGame {
 	BackGround backGround;
 
 	GameWindow window;
-	RenderLoop renderLoop;
-	TickLoop tickLoop;
+	public static RenderLoop renderLoop;
+	public static TickLoop tickLoop;
 
 	World world;
 	Camera camera;
+	ExplosionManager explosionManager;
 
 	public static EntityPlayer player;
 
@@ -61,11 +62,11 @@ public class Game implements IGame {
 		world = new World();
 
 		player = new EntityPlayer(
-				new Vector2f(GameSettings.width / 2 + Assets.getRocket().getWidth() / 2, 0),
-				new Vector2f(0.0f, 7.0f), 1.0f, 100, Assets.getRocket());
+				new Vector2f(GameSettings.width / 2 + Assets.getRocket().getWidth() / 2, -2000),
+				new Vector2f(0.0f, 10.0f), 1.0f, 100, Assets.getRocket());
 		player.centerCameraOnPlayer();
 
-		this.jframe = window.getWindow();
+		Game.jframe = window.getWindow();
 		jframe.addKeyListener(new KeyInput());
 
 		StatManager.init();
@@ -75,6 +76,8 @@ public class Game implements IGame {
 
 		entityCreator = new EntityCreator();
 		entityCreator.init(this);
+		
+		explosionManager = new ExplosionManager();
 
 		renderLoop = new RenderLoop();
 		renderLoop.setGame(this);
@@ -118,17 +121,18 @@ public class Game implements IGame {
 		entityManager.render(g);
 		world.render(g);
 		player.render(g);
+		explosionManager.render(g);
 		StatManager.render(g);
 	}
-
 	@Override
-	public void tick() {
-		player.tick();
-		entityManager.tick();
-		world.tick();
-		StatManager.tick();
-		backGround.tick();
-		camera.tick();
+	public void tick(int tickCount) {
+		player.tick(tickCount);
+		entityManager.tick(tickCount);
+		world.tick(tickCount);
+		explosionManager.tick(tickCount);
+		StatManager.tick(tickCount);
+		backGround.tick(tickCount);
+		camera.tick(tickCount);
 	}
 
 	public void stop() {

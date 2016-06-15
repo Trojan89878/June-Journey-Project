@@ -1,5 +1,7 @@
 package com.troy.junejourney.game;
 
+import com.troy.junejourney.util.*;
+
 public class TickLoop implements Runnable {
 	public Thread tickThread;
 	public boolean tickRunning;
@@ -8,8 +10,9 @@ public class TickLoop implements Runnable {
 	public static volatile boolean ticking = false;
 	public static int delays;
 	public static long tickTime = 0;
-	int tickCounter = 0;
+	public static int tickCounter = 0;
 	Game game;
+	private static Explosion toAdd = null;
 	
 	public void start(Game game){
 		this.game = game;
@@ -51,11 +54,12 @@ public class TickLoop implements Runnable {
 					ticking = true;
 					thisTick = System.nanoTime();
 					//call the tick methoid in tick whitch updates everything
-					game.tick();
+					game.tick(tickCounter);
 					tickCounter++;
 					delta--;
 					lastTick = thisTick;
 					tickTime = (thisTick - lastTick);
+					addAndRemove();
 				}
 				
 				
@@ -70,5 +74,16 @@ public class TickLoop implements Runnable {
 			e.printStackTrace();
 		}
 			
+	}
+	
+	private void addAndRemove() {
+		if(toAdd != null){
+			Explosion.explosionsTick.add(toAdd);
+		}
+		toAdd = null;
+	}
+	
+	public static void toAdd(Explosion e){
+		toAdd = e;
 	}
 }

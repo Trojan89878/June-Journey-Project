@@ -11,6 +11,7 @@ import com.troy.junejourney.input.*;
 import com.troy.junejourney.world.*;
 import com.troy.troyberry.math.vector.*;
 import com.troy.troyberry.shape.Rectangle;
+import com.troy.troyberry.util.*;
 
 import static java.lang.Math.round;
 
@@ -25,11 +26,11 @@ public class EntityPlayer extends Entity {
 			BufferedImage image) {
 		super(position, velocity, scale, image, false);
 		this.setHealth(health);
-		this.setFuel(413.342f);
+		this.setFuel(433.342f - (GameSettings.astroidDamageBuffer));
 	}
 
 	@Override
-	public void tick() {
+	public void tick(int tickCount) {
 
 		if (!isAlive()) {
 			this.setFuel(0f);
@@ -41,13 +42,20 @@ public class EntityPlayer extends Entity {
 			this.setAlive(false);
 			return;
 		}
-		super.tick();
+		super.tick(tickCount);
 		// read key inpts and move the rocket accordingly
 		if (this.getFuel() >= 0) {
-			if (KeyHandler.getKey(KeyEvent.VK_SPACE)) {
+
+			if (KeyHandler.getKey(KeyEvent.VK_SPACE )) {
 				Vector2f.add(getVelocity(), World.THRUSTERDOWN, getVelocity());
 				useFuel(0.05f);
+			}else{
+				if(tickCount <= 400){
+					Vector2f.add(getVelocity(), World.THRUSTERDOWN, getVelocity());
+					useFuel(0.05f);
+				}
 			}
+			
 			if (KeyHandler.getKey(KeyEvent.VK_A)) {
 				Vector2f.add(getVelocity(), World.THRUSTERLEFT, getVelocity());
 				useFuel(0.01f);
@@ -102,9 +110,46 @@ public class EntityPlayer extends Entity {
 						// width and height
 						round(Assets.getFlame().getWidth() * 0.5f),
 						round(Assets.getFlame().getHeight() * 0.5f), null);
+			}else{
+				if(TickLoop.tickCounter <= 275 && GameSettings.toturial){
+					g.setFont(new Font("Verdana", Font.PLAIN, 30));
+					MiscUtil.drawCenteredString(g, "Press space to activate the downward thruster!", GameSettings.width / 2f, GameSettings.height / 5f);
+					
+					float randomAddition;
+
+					if (getVelocity().getY() > 0.5f) {
+						randomAddition = random.nextFloat() * Game.player.getVelocity().getY();
+						randomAddition = Math.min(randomAddition, 6.0f);
+					} else {
+						randomAddition = random.nextFloat() * 0.75f;
+					}
+
+					g.drawImage(Assets.getFlame(),
+							// X position
+							round(getPosition().getX() + Game.player.getWidth() / 2
+									- Assets.getFlame().getWidth() / 4.2f + randomAddition),
+							// Y position
+							round(getPosition().getY() + Game.player.getHeight() / 2
+									- Assets.getFlame().getHeight() / 8 - Camera.yOffset),
+							// width and height
+							round(Assets.getFlame().getWidth() * 0.5f),
+							round(Assets.getFlame().getHeight() * 0.5f), null);
+				}
 			}
 		}
 		super.render(g);
+		
+		if(TickLoop.tickCounter > 275 && TickLoop.tickCounter <= 550 && GameSettings.toturial){
+			g.setFont(new Font("Verdana", Font.PLAIN, 30));
+			MiscUtil.drawCenteredString(g, "Use A and D to move the ship left and right", GameSettings.width / 2f, GameSettings.height / 5f);
+			
+		}
+		
+		if(TickLoop.tickCounter > 550 && TickLoop.tickCounter <= 640 && GameSettings.toturial){
+			g.setFont(new Font("Verdana", Font.PLAIN, 30));
+			MiscUtil.drawCenteredString(g, "Good luck and have fun!", GameSettings.width / 2f, GameSettings.height / 5f);
+			
+		}
 	}
 
 	public void damage(float amount) {
